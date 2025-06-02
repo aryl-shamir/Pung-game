@@ -73,22 +73,28 @@ Pung-game/
 2. Ensure you have Python installed
 3. Run the game:
 
-```bash
-python main.py
+🐛 Issues Encountered
+Bug: Multiple rapid bounces when the ball hits a paddle.
 
-## Issues encountered
-1. There was a bug: multiple rapid bounces when the ball hits a paddle
-2. it happens because the ball still overlaps with the paddle in subsequent frames due to its movement speed and loop delay. The distance condition (ball.distance(paddle) < 50) continues to be True for multiple frames, causing multiple bounces in quick succession
-3. The file debugging bouncing bug fixes this problem.
+Cause: This happens because the ball still overlaps with the paddle in subsequent frames due to its movement speed and loop delay. The distance condition (ball.distance(paddle) < 50) continues to be True for multiple frames, causing multiple bounces in quick succession.
 
-# Explanation
-ball.x_move is a number that controls how far the ball moves horizontally on each frame.
-1. If x_move > 0, the ball is moving right.
-2. If x_move < 0, the ball is moving left.
+Fix: A logic condition was added to check the ball’s movement direction (x_move) before bouncing.
 
-ball.x_move > 0 means the ball is moving right, so only bounce if it's hitting the right paddle.
+🧩 Explanation of the Fix
+ball.x_move controls how far the ball moves horizontally per frame.
 
-ball.x_move < 0 means it's moving left, so only bounce if it's hitting the left paddle.
+If x_move > 0, the ball is moving right.
+
+If x_move < 0, the ball is moving left.
+
+Solution logic:
+Only bounce if the ball is hitting the paddle in the correct direction:
+
+If the ball is moving right (x_move > 0), only bounce when hitting the right paddle.
+
+If the ball is moving left (x_move < 0), only bounce when hitting the left paddle.
+
+✅ This ensures that the ball only bounces once per paddle hit, not multiple times in a row.
 
 This ensures that the ball only bounces once per paddle hit, not multiple times in quick succession.
 
